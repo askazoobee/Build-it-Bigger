@@ -23,6 +23,12 @@ public class MainActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_main, container, false);
 
+/*
+        TextView textView = (TextView)root.findViewById(R.id.insert_joke);
+        jokes java_joke = new jokes();
+        textView.setText(java_joke.getJoke());
+*/
+
         AdView mAdView = (AdView) root.findViewById(R.id.adView);
         // Create an ad request. Check logcat output for the hashed device ID to
         // get test ads on a physical device. e.g.

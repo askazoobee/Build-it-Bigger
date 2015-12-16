@@ -1,19 +1,25 @@
 package com.udacity.gradle.builditbigger;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
+
+import com.example.jokes;
+import com.example.littlebig.androidjokes.MainJokeActivity;
 
 
 public class MainActivity extends ActionBarActivity {
+
+String joke_text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
     }
 
 
@@ -22,6 +28,7 @@ public class MainActivity extends ActionBarActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+
     }
 
     @Override
@@ -40,8 +47,15 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void tellJoke(View view){
-        Toast.makeText(this, "derp", Toast.LENGTH_SHORT).show();
-    }
 
+        jokes java_joke = new jokes();
+        joke_text = java_joke.getJoke();
+
+        Intent myIntent = new Intent(this, MainJokeActivity.class);
+        myIntent.putExtra(Intent.EXTRA_TEXT,joke_text);
+        startActivity(myIntent);
+       // Toast.makeText(this, "derp", Toast.LENGTH_SHORT).show();
+
+    }
 
 }
