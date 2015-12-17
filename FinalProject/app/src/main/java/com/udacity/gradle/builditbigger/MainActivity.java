@@ -48,12 +48,16 @@ String joke_text;
 
     public void tellJoke(View view){
 
-        jokes java_joke = new jokes();
+        JokeAsyncTask task = new JokeAsyncTask();
+        task.execute(getApplicationContext());
+
+/*        jokes java_joke = new jokes();
         joke_text = java_joke.getJoke();
 
         Intent myIntent = new Intent(this, MainJokeActivity.class);
         myIntent.putExtra(Intent.EXTRA_TEXT,joke_text);
-        startActivity(myIntent);
+        startActivity(myIntent);*/
+
        // Toast.makeText(this, "derp", Toast.LENGTH_SHORT).show();
 
     }

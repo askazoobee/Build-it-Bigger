@@ -1,4 +1,5 @@
 apply plugin: 'java'
+sourceCompatibility = 1.7
 
 repositories {
     jcenter()
@@ -6,6 +7,4 @@ repositories {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-
 }
-sourceCompatibility = 1.7
