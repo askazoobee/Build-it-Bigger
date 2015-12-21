@@ -19,8 +19,21 @@ import java.io.IOException;
  * Created by littleBIG on 12/16/2015.
  */
  class JokeAsyncTask extends AsyncTask<Context, Void, String> {
-        private static MyApi myApiService = null;
-        private Context context;
+
+    private static MyApi myApiService = null;
+    private Context context;
+    private JokeAsyncTaskListener mListener = null;
+    private Exception mError = null;
+
+
+    public interface JokeAsyncTaskListener {
+        void onComplete(String jsonString, Exception e);
+    }
+
+    public JokeAsyncTask setListener(JokeAsyncTaskListener listener) {
+        this.mListener = listener;
+        return this;
+    }
 
         @Override
         protected String doInBackground(Context... params) {
@@ -51,14 +64,30 @@ import java.io.IOException;
             }
         }
 
+
+
+    @Override
+    protected void onCancelled() {
+        if (this.mListener != null) {
+            mError = new InterruptedException("AsyncTask cancelled");
+            this.mListener.onComplete(null, mError);
+        }
+    }
+
+
+
         @Override
         protected void onPostExecute(String result) {
-            Toast.makeText(context, result, Toast.LENGTH_LONG).show();
-
-            Intent myIntent = new Intent(context.getApplicationContext(), MainJokeActivity.class);
-            myIntent.putExtra(Intent.EXTRA_TEXT,result);
-            myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(myIntent);
+            if (this.mListener != null) {
+                this.mListener.onComplete(result, mError);
+            } else {
+                Toast.makeText(context, result, Toast.LENGTH_LONG).show();
+                Intent myIntent = new Intent(context.getApplicationContext(), MainJokeActivity.class);
+                myIntent.putExtra(Intent.EXTRA_TEXT, result);
+                myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(myIntent);
+            }
         }
+
     }
 
