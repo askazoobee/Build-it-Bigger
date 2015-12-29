@@ -1,0 +1,5 @@
+<resources>
+    <string name="instructions">Press the button for a delicious PAID joke!</string>
+    <string name="button_text">Tell PAID Joke</string>
+    <string name="insert_joke">insert PAID joke here!</string>
+</resources>
